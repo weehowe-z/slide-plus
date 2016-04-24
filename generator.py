@@ -12,6 +12,7 @@ def pptx_to_pdf(pptx_name, quality = "100"):
 def pdf_to_img(pdf_name, density = "100", size = "default"):
 	# os.system("convert -density 400 test.pdf -resize 2000x1500 img%d.jpg")
 	os.system("convert -density 400 " + pdf_name + " img/img%d.jpg")
+	os.system("rm -f " + pdf_name)
 	(status, file_num) = commands.getstatusoutput("ls img/ | wc -l")
 	print "Images created"
 	return int(file_num)
@@ -38,7 +39,8 @@ def main():
 	else:
 		path = sys.argv[1]
 
-	pptx_name = path.split("/")[-1]
+	# pptx_name = path.split("/")[-1]
+	pptx_name = path
 	pdf_name = pptx_to_pdf(pptx_name)
 	img_num = pdf_to_img(pdf_name)
 	generate(img_num);
